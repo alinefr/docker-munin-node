@@ -8,7 +8,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.schema-version="2.2-r1"
 
-RUN apk add --update --no-cache munin-node busybox-extras mtr wget bind-tools
+RUN apk add --update --no-cache munin-node busybox-extras mtr wget bind-tools perl-net-cidr
 
 ADD ./plugins/* /usr/share/munin/plugins/
 

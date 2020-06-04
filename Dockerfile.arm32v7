@@ -10,7 +10,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 
 COPY qemu-arm-static /usr/bin
 
-RUN apk add --update --no-cache munin-node busybox-extras mtr wget bind-tools
+RUN apk add --update --no-cache munin-node busybox-extras mtr wget bind-tools perl-net-cidr
 
 ADD ./plugins/* /usr/share/munin/plugins/
 
