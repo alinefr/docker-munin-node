@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM alpine:latest
 
 # Now we DO need these, for the auto-labeling of the image
 ARG BUILD_DATE
@@ -11,10 +11,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.schema-version="2.2-r1"
 
 # munin 2.0.55
-RUN apt-get update -y && \
-      apt-get install -y munin-node telnet mtr wget dnsutils && \
-      apt-get clean && \
-      rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apk add --update --no-cache munin-node busybox-extras mtr wget bind-tools
 
 ADD ./plugins/* /usr/share/munin/plugins/
 

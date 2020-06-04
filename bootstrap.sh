@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 MUNIN_CONFIGURATION_FILE=/etc/munin/munin-node.conf
 MUNIN_LOG_FILE=/var/log/munin/munin-node-configure.log
@@ -10,10 +10,8 @@ if [ ! -z "$ALLOW" ]; then
     fi        
 fi
 
-# if /var/lib/muninplugins/ do exist, soft link to /etc/munin/plugins
-for i in `ls /var/lib/muninplugins/`; do 
-  ln -s /var/lib/muninplugins/$i /etc/munin/plugins/$i
+for i in `ls /usr/lib/munin/plugins/`; do 
+  ln -sf /usr/lib/munin/plugins/$i /etc/munin/plugins/$i 2>&1 >/dev/null
 done
 
-/etc/init.d/munin-node start
-tailf $MUNIN_LOG_FILE
+/usr/sbin/munin-node
