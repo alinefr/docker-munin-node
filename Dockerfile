@@ -17,6 +17,7 @@ ADD ./plugins/* /usr/share/munin/plugins/
 
 RUN ln -s /usr/share/munin/plugins/cpu_by_process /etc/munin/plugins/cpu_by_process && munin-node-configure --shell | sh && mkdir -p /var/log/munin/; chown -R munin:munin /var/log/munin/
 
-ADD bootstrap.sh /root/bootstrap.sh
+ADD docker-entrypoint.sh /docker-entrypoint.sh
 
-CMD /root/bootstrap.sh
+ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
+CMD ["/usr/sbin/munin-node"]
