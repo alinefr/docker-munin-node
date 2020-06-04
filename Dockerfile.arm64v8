@@ -18,5 +18,5 @@ RUN ln -s /usr/share/munin/plugins/cpu_by_process /etc/munin/plugins/cpu_by_proc
 
 ADD docker-entrypoint.sh /docker-entrypoint.sh
 
-ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/docker-entrypoint.sh"]
 CMD ["/usr/sbin/munin-node"]
