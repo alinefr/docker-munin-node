@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 MUNIN_CONFIGURATION_FILE=/etc/munin/munin-node.conf
 MUNIN_LOG_FILE=/var/log/munin/munin-node-configure.log
@@ -12,8 +12,13 @@ fi
 
 sed -i 's/background 1/background 0/;s/setsid 1/setsid 0/;/^log_file/d' /etc/munin/munin-node.conf
 
-for i in `ls /usr/lib/munin/plugins/`; do
-  ln -sf /usr/lib/munin/plugins/$i /etc/munin/plugins/$i
-done
+if [ ! -z "$PLUGINS" ]; then
+  IFS=, read -a plugins <<< "${PLUGINS%;}"
+  for i in "${plugins[@]}"; do 
+    IFS=: read -a plugin <<< "${i%;}"
+    pname="${plugin%%:*}"; plink="${plugin#*:}"
+    ln -sf /usr/lib/munin/plugins/$pname /etc/munin/plugins/$plink
+  done
+fi
 
 exec "$@"
