@@ -15,9 +15,9 @@ sed -i 's/background 1/background 0/;s/setsid 1/setsid 0/;/^log_file/d' /etc/mun
 if [ ! -z "$PLUGINS" ]; then
   IFS=, read -a plugins <<< "${PLUGINS%;}"
   for i in "${plugins[@]}"; do 
-    IFS=: read -a plugin <<< "${i%;}"
-    pname="${plugin%%:*}"; plink="${plugin#*:}"
-    ln -sf /usr/lib/munin/plugins/$pname /etc/munin/plugins/$plink
+    pname="$(cut -d':' -f1 <<<${i})"
+    plink="$(cut -d':' -f2 <<<${i})"
+    ln -sf /usr/share/munin/plugins/$pname /etc/munin/plugins/$plink
   done
 fi
 
